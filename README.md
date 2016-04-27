@@ -10,7 +10,7 @@ Well all was nice & cozy back home, but its a jungle out there! Bullies will try
 So, when you release your baby out to the world, make sure its damn ready.
 And when it comes back home all banged up - patch it up fast all send it out there again, because mammy & daddy are working on a new one now and don't have time for this kind of crap.
 
-##The Debug process
+## The Debug process
 The basic steps in debugging are:
  1. Recognize that a bug exists
  2. Isolate the source of the bug
@@ -111,7 +111,7 @@ def add(x, y)
 end
 ```
 
-Now by simply viewing the log we can pin point the error, loos like someone is missusing the the MyMath.add method and feeding it the wrong input.
+Now by simply viewing the log we can pin point the error, loos like someone is misusing the the MyMath.add method and feeding it the wrong input.
 
 ```bash
   Apr 24 04:01:20 [debug]: MyMath.add(3, _2)
@@ -131,7 +131,7 @@ def add(x, y)
 end
 ```
 
-Now by just viewing the logs, we can see the issue. 
+Now by just viewing the logs, we can see the issue.
 ```bash
  Apr 24 04:01:20 [warn]: MyMath.add: invalid input y=#{_2}
 ```
@@ -196,13 +196,13 @@ Messages should be informative:
 
  Now that our commits contains some actual useful data, but how can we find the relavant commit.
 
-######git log
+###### git log
 Displays latest commits to the repo.
 
-######git blame
+###### git blame
 Shows how was the last to make changes to the viewed code, and at which commit.
 
-######git bisect
+###### git bisect
 Does a binary search on the commits.
  - `git bisect start` - start the bisect
  - `git bisect bad` - marks the current commit as bad, meaning the bug exists.
@@ -223,28 +223,28 @@ When a lot of changes where done between the two targets, diff can be too overwa
 ========================================================================================================================
 
 ## Culture
-A single developer can work very fast & effienatly, but there is a limit. At some point the project is simply too big/complicated for a single developer to manage & support.
+A single developer can work very fast & efficiently, but there is a limit. At some point the project is simply too big/complicated for a single developer to manage & support.
 
-Working as a team requires good communucation folowing agreed guidelines.
+Working as a team requires good communication following agreed guidelines.
 
 #### Issue Tracking
-As our software gets bigger & bigger, the code base increases. 
-Vendors code is integrated & open source code is added. 
+As our software gets bigger & bigger, the code base increases.
+Vendors code is integrated & open source code is added.
 As the code evolves, it accumulate more and more bugs.
  - When a bug is found, minor or major, make sure it is tracked.
-   - Minor bugs can be ignored for a while, but can also mutate into a more sirouse issue.
-   - Open a task. Write everything you found relavent during your investigations for future usage.
+   - Minor bugs can be ignored for a while, but can also mutate into a more serious issue.
+   - Open a task. Write everything you found relevant during your investigations for future usage.
  - Keep vendor/open source code updated.
    - Keep track on your vendors blogs / press releases.
-   - View the change log of new releases. 
+   - View the change log of new releases.
    - Review the external projects open/close issues.
    - Upgrades can contain bug fixes.
-   - Upgrades can inderduce new bugs too, run sanity tests before committing code upgrades.
+   - Upgrades can introduce new bugs too, run sanity tests before committing code upgrades.
 
 ------------------------------------------------------------------------------------------------------------------------
 
 #### Research
-Ok, we use all those awsome tools now know where the bug is generated. Time to pin point the issue and find a solution.
+Ok, we use all those awesome tools now know where the bug is generated. Time to pin point the issue and find a solution.
 
 ###### Remain effective
 Debugging is hard. We need to keep our mind sharp.
@@ -252,66 +252,78 @@ Debugging is hard. We need to keep our mind sharp.
  - Find a quite place to work.
  - Ask not to be disturbed.
 
-###### Rubber Duck Debuging
+###### Rubber Duck Debugging
 In order to find a solution, we first need to define the problem.
-We all had that experince when a solution amerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gatther your thougths. Studies shows that an object can be as effective as a human. So... why not a rubber duck or a teddy bear?
+We all had that experience when a solution emerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gather your thoughts. Studies shows that objects can be as effective as a humans for that purpose, So... why not a rubber duck or a teddy bear?
 
 ###### Use Co-workers
-Well, even you duck is not very much helpful... Time to leverage other people knowlage & experince.
- - Diside for how long you're going to perssue a lead on your own.
- - Keep in mind that others are busy too. I find the 'Try everthing from the first google page' rule pretty useful.
+Well, even you duck is not very much helpful... Time to leverage other people knowledge & experience.
+ - Decide for how long you're going to pursue a lead on your own.
+ - Keep in mind that others are busy too. I find the 'Try everything from the first Google page' rule pretty useful.
  - Once you got someone attention, let them find their own way.
  - Explain what is wrong, not what you did. Let others find their own way. don't trap them in your mind set.
- - Be patiant, no body likes helping a jackass.
+ - Be patient, no body likes helping a jackass.
 
 ------------------------------------------------------------------------------------------------------------------------
 
 #### Clean Code
 Code is almost never written just once. Most of the time, someone (maybe even you) will need to work on that piece of code at some point.
 
-As Robert C. Martin stated in his book Clean Code: A Handbook of Agile Software Craftsmanship, “Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.” But why should you care? What’s wrong with code that just works?
+As Robert C. Martin stated in his book 'Clean Code: A Handbook of Agile Software Craftsmanship':
 
-'Clean code' contains less bugs, easier to understand & debug.
-'Dirty code' is hard to handle & maintain, and in time will 'rot' due to abandment.
+“Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.”
 
+But why should you care? What’s wrong with code that just works?
+ - 'Clean code' contains less bugs, easier to understand & debug.
+ - 'Dirty code' is hard to handle & maintain, and in time will 'rot' due to abandonment.
+
+More tips:
  - The five-minute rule - if you find an ugly piece of code that can be fixed very fast, do it.
- - allways improve yourself. if you are not happy with your current work, improve it, or at least understand what is wrong. next time, do it better.
+ - always improve yourself. if you are not happy with your current work, improve it, or at least understand what is wrong. next time, do it better.
 
+#### Design & Architecture
+Programs a divided into modules. Every module has its role and purpose. It helps you keep DRY principles and code quality.
 
-###### Design & Archtecture
-This is the basic 'think before you do' idea. Before racing ahead and writing hundreds of lines of code, take some time an ponder about your task.
-  - What are the feature requierments exactly?
-  - Do I have sufficient knowlage in order to complete the task, or need more time for research.
+Some tasks can be quite complex, and won't be completed in one coding session. you want to make sure that if & when you drop or hand over the task to someone els, it will be easy to pickup.
+
+Overall, sound architecture also prevents bugs.
+When program parts are not well defined we start seeing mutant modules that does many things, code duplication, and spaghetti code.
+
+Before racing ahead and writing hundreds of lines of code, take some time an ponder about your task.
+  - How does it fit the big picture.
+  - What are the feature requirements exactly?
+  - Do I have sufficient knowledge in order to complete the task, or need more time for research.
   - What are the feature components and how they interact with each other.
-
-Some tasks can be quite complex, and won't be completed in one coding session. you want to make sure that if& when you drop the task for awhile, it will be easy to pick it up again.
-  - draw a sketch.
-  - define subtasks
+  - Can I reuse/expand any other modules?
   - break the tasks into a road-map. Define were are the main break points. When you reach a break point, ask your self if you have the time to reach the next one or not.
 
-######code review
+#### Code review
 Code review is systematic examination of the source code.
-Its main goals are find developers mistakes before the code is deplyed and mutate into a full grown bug.
+Its main goals are find developers mistakes before the code is deployed and mutate into a full grown bug.
 
 There are a few type of code reviews
  - Over-the-shoulder – one developer looks over the author's shoulder as the latter walks through the code.
- - Email pass-around – source code management system emails code to reviewers automatically after checkin is made.
+ - Email pass-around – source code management system emails code to reviewers automatically after commits is made.
  - Pair programming – two authors develop code together at the same workstation, as it is common in Extreme Programming.
- - Tool-assisted code review – authors and reviewers use software tools, informal ones such as pastebins and IRC, or specialized tools designed for peer code review.
+ - Tool-assisted code review – authors and reviewers use software tools specialized for peer code review.
 
 Studies show that lightweight reviews uncovered as many bugs as formal reviews, but were faster and more cost-effective.
+ - Use tools / version control to see code changes.
+ - Review the code while its fresh.
+ - Sessions should be brief, no more than an hour.
+ - Cover 200-400 line per session.
+ - Cover everything. configs, unit tests are code too.
 
- - use tools / version control to see code chagnes.
- - review the code while its fresh.
- - sessions should be briff, no more than an hour.
- - cover 200-400 line per session.
- - cover everything. configs, unit tests are code too.
+###### Automated tests
+There are lots of reasons why we should automate tests.
+The main argument you hear against it is 'it takes too much time'.
+Well, let me assure you - debugging takes much more time.
 
-######Automated tests
-There are lots of reasons why we should autamate tests.
-the main argument you hear against it is 'it takes too much time'.
-Well, let me asure you - debuging takes much more time.
-
-you can read more about it at a previuse post here
+You can read more about it at a previous post [here](https://github.com/Spectory/unit_tests_dev_meeting)
 
 ------------------------------------------------------------------------------------------------------------------------
+## Resources
+https://en.wikibooks.org/wiki/Computer_Programming_Principles/Maintaining/Debugging#Basic_debugging_steps
+http://cvuorinen.net/2014/04/what-is-clean-code-and-why-should-you-care/
+http://dev.splunk.com/view/logging-best-practices/SP-CAAADP6
+http://guides.rubyonrails.org/debugging_rails_applications.html
