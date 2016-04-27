@@ -1,15 +1,16 @@
 Debugging
 ---------
-### Intro
+
 Programs are like kids. You're at your home/office playing around, see how your baby grows, does all this nice things you though it to do, and feel so proud when it succeed. It reflects you so well, for the better & the worst.
+
 True, somethings it misbehave and make you regret that late drunken night it all started at, but at the end you're creation is all grown up and needs to go out to the world.
 
-Well all was nice & cozy back home, but its a jungle out there! bullies will try to hurt it, viruses will try to kill it, all those damn users just don't understand how to tread it right...
+Well all was nice & cozy back home, but its a jungle out there! Bullies will try to hurt it, viruses will try to kill it, and all those damn users just don't understand how to tread it right...
 
 So, when you release your baby out to the world, make sure its damn ready.
 And when it comes back home all banged up - patch it up fast all send it out there again, because mammy & daddy are working on a new one now and don't have time for this kind of crap.
 
-###Debug process
+##The Debug process
 The basic steps in debugging are:
  1. Recognize that a bug exists
  2. Isolate the source of the bug
@@ -17,44 +18,49 @@ The basic steps in debugging are:
  4. Determine a fix for the bug
  5. Apply the fix and test it
 
-Pretty simple ahh? We all know its not as easy as it sounds. The hardest parts are 2 & 3. This is the part when you bang your head at the table and regret the day you choose to be a programmer.
+Pretty simple ahh? But we all know its not as easy as it sounds.
+
+The hardest parts are 2 & 3. This is where you bang your head at the table and regret the day you choose to be a programmer.
+Luckly, there are ways to soften that processes. At this doc, we'll go over some.
 
 ========================================================================================================================
 
-### Tools
-The difference between a pro and an amature is that a pro knows how to use his tool.
+## Tools
+The difference between a pro and an amature is that **a pro knows how to use his tools**.
 
 #### Loggers
 Loggers allow us to to see what a program is doing just by observing from outside.
 When logs are kept & well maintained, it will also allow us to see what the system did in the past.
 
 ###### log levels
+When something is logged, it is written into the corresponding log, if the log level of the message is equal or higher than the configured log level.
 
-When something is logged, it is printed into the corresponding log if the log level of the message is equal or higher than the configured log level.
-Most common log levels (ordered by severity) are :debug, :info, :warn, :error, :fatal.
+Most common log levels (ordered by severity) are :debug, :info, :warn, :error, :fatal, but most loggers will allow you to add your own levels & tags.
 
-##### Performance Impact
+###### Performance Impact
 Loggers affect app preformance in two aspects
- - IO - Logs are written to disk.
- - CPU/RAM - convertsion complex objects to string.
+ - IO - Logs are written to disk. When IO is massive, it can become a bottle next at you OS/Network, which can impact you program performace.
+ - CPU/RAM - Strings are written to the log. If we convert complex objects to strings, it takes its toll on the OS.
 
-##### Logging tips
-Reading a log should give you a clear indication of what is going on at the system. A log entry should be informative:
- - where - where in the code this log entry was created.
- - who - which system/module/process created it
- - when - when & in what order the events happen
- - what - what exactly happened
+###### Logging tips
+Reading a log should give you a clear indication of what is going on at the system. A log entry should be informative. it should be easy to understand:
+ - Where in the code this log entry was created.
+ - Which system/module/process generated it.
+ - When & in what order the events happen.
+ - What exactly happened.
 
 You can achieve most of it by
  - Add the Module & Method name to the log entry
  - Print parameters & variables
- - Avoid logs in a loop
- - Avoid logs that require stringfy of big data structures / parsing
  - Use log levels wisely to reduce IO.
 
-##### Example
+In order to minimize the Logger impact on your system:
+ - Avoid logs in a loop
+ - Avoid logs that require stringfy/parsing of big data structures
 
-for example Lets consider the following code
+###### Example
+
+Lets consider the following code
 
 ```ruby
 module MyMath
@@ -72,10 +78,10 @@ module MyCalc
 end
 ```
 
-Our program which (uses the MyMath module), and misbehaving.
+Our program which uses the MyMath module, is misbehaving.
 Some users complained that sometimes the program returns the wrong result.
 After more questioning, we know the exact input the user entered.
-we can reproduce the bug, but see no errors at the logs, all we can & need to do is start probing around at the code.
+We are able reproduce the bug, but see no errors/execptions raised. All we can to do is start probing around at the code, while running manual tests.
 
 How can we prevent or at least reduce the debug cycle of such scenarios?
 
@@ -92,9 +98,9 @@ def add(x, y)
 end
 ```
 
-Those kind of prints are very helpful while developing/debugging, pretty annoying for when comes in masses. This is why prints are required to be deleted - in order to keep our system logs clean.
+Those kind of prints are very helpful while developing/debugging, but pretty annoying for when comes in masses. This is why prints are required to be deleted - in order to keep our system logs clean.
 
-Using loggers `debug` mode allows us to eat our cake and eat it two - use our prints, but only when needed
+Using loggers `debug` mode allows us to eat our cake and eat it two - use our prints, but only when needed.
 
 ```ruby
 def add(x, y)
@@ -112,29 +118,49 @@ Now by simply viewing the log we can pin point the error, loos like someone is m
   Apr 24 04:01:20 [debug]: MyMath.add: res = 0
 ```
 
+We can even improve that by adding a warn message
+
+```ruby
+def add(x, y)
+  @logger.debug("MyMath.add(#{x}, #{y})")
+  @logger.warn("MyMath.add: invalid input x=#{x}") unless valid_arg(x)
+  @logger.warn("MyMath.add: invalid input y=#{y}") unless valid_arg(y)
+  res = (x.to_i + y.to_i)
+  @logger.debug("MyMath.add: res = #{res}")
+  return res
+end
+```
+
+Now by just viewing the logs, we can see the issue. 
+```bash
+ Apr 24 04:01:20 [warn]: MyMath.add: invalid input y=#{_2}
+```
 ------------------------------------------------------------------------------------------------------------------------
 
-##### Debuggers
-Debuggers allows use to see what a programs is doing from the inside.
-Different debugger have different capabiltise but usualy you can find the same features at each.
+#### Debuggers
+Debuggers allows us to see what a programs is doing from the inside.
+Different debugger have different capabiltise but usualy you can find the same basic features at each.
  - Break points.
- - Performance measuring
- - Data Structure viewers
+ - Performance measuring.
+ - Data Structure viewers.
  - ...
 
 ------------------------------------------------------------------------------------------------------------------------
 
 ##### Linters
-Linters are programs that analyze code for potential errors, both logic & style. Simply put, a parser parses your code and looks for mistakes.
-It’s save time & maintain code quality/safety. Most editor will allow us to integrate linters as plugins, but we can use them as stand alone to automate scripts of our own.
+Linters are programs that analyze code for potential errors, both logic & style.
+Simply put, a parser parses your code and looks for mistakes.
+It saves time & maintain code quality/safety.
+
+Most editor will allow us to integrate linters as plugins, but we can use them as stand alone to automate scripts of our own.
 
 Linters have a wide range of abilaties:
  - Detect logical errors (such as missing a comma or misspell a variable name)
  - Detect code anti-patterns.
  - Detect syntax error.
  - Detect deprecated code usage.
- - Suggest code optimizartions.
- - Some Linters (rubocop for example) will even do those fixes for you.
+ - Suggest code optimiztions.
+ - Some Linters will even do those fixes for you.
 
 For example, a linter will prevent the classic mistake of global variables at JS
 ```js
@@ -152,91 +178,95 @@ or useless assignments at ruby
 
 ------------------------------------------------------------------------------------------------------------------------
 
-##### Version Control
-Bugs are 99% human error. someone wrote a code that is missbehaving.
+#### Version Control
+Bugs are 99.99999% human error. someone wrote a piece of code that is missbehaving.
 Version Control keeps our code changes history.
 By reviewing the history we can tell who chagnged what & when.
 
 ###### git commit
-In order to make the best of it, we should be descriptive at our commits messages.
-Commiting changes like `git commit -am 'fix'` is pretty useless...
-messages should be informative:
- - what task did you work on?
- - is there a task id that we use to mannage our work? include that too.
- - reflect in general what chagnes this commit bring to the project.
- - make sure your username & email are set correctly `git config -l`
+In order to make the best of it, first we should be descriptive at our commits messages.
+Commit messges like `git commit -am 'fix'` are pretty useless...
+
+Messages should be informative:
+ - What feature does this commit relate to?
+ - Is there a task id that we use to mannage our work? include that too.
+ - Describe what chagnes does this commit bring to the project.
+ - Make sure your username & email are set correctly `git config -l`
+ - Keep commits small. commits that includes many code changes are hard to follow/describe.
 
  Now that our commits contains some actual useful data, but how can we find the relavant commit.
 
-#######git log
-displays latest commits to the repo.
+######git log
+Displays latest commits to the repo.
 
-#######git blame
-Show you how was the last to make changes to the viewed code, and at which commit.
+######git blame
+Shows how was the last to make changes to the viewed code, and at which commit.
 
-#######git bisect
+######git bisect
 Does a binary search on the commits.
  - `git bisect start` - start the bisect
  - `git bisect bad` - marks the current commit as bad, meaning the bug exists.
  - `git bisect good <COMMIT_ID>` - makes the commit as bug free, (for example the last stable version that was marked with the `git tag` cmd)
  - `git bisect` check out to the middle commit.
 
-keep marking commits as good/bad till you find the commit that produecd the bug.
+Keep marking commits as good/bad till you find the commit that produecd the bug.
  - remmber to use `git bisect reset` to go back to the starting point, or you'll leave the repo in a weird state.
 
 ###### git diff
 Displays the diffrance between 2 commits / branches / files
-Use the `--name-only` option to list affected files.
+Use the `--name-only` option to list affected files instead of files content.
 
 ###### git show <COMMIT_ID>
-When a lot of changes where done between the two targets, diff can be too overwalming`git show` can display only changes from the given commit.
+When a lot of changes where done between the two targets, diff can be too overwalming. `git show` displays only changes from the given commit.
 `--name-only` works here too.
 
 ========================================================================================================================
 
-### Culture
-A single developer can work very fast sometimes, but there is a limit. at some point the project is simply too big/complicated for a single developer to manage & support.
+## Culture
+A single developer can work very fast & effienatly, but there is a limit. At some point the project is simply too big/complicated for a single developer to manage & support.
 
-Working as a team requires good communucation folowing guidelines.
+Working as a team requires good communucation folowing agreed guidelines.
 
-##### Issue Tracking
-As our software gets bigger & bigger. the code base increases, vendors code is integrated & open source code is added. as the code evolves, it accumulate more and more bugs.
- - when a bug is found, minor or major, make sure it is tracked.
-   - minor bugs can be ignored for a while, but can also mutate into a more sirouse issue.
+#### Issue Tracking
+As our software gets bigger & bigger, the code base increases. 
+Vendors code is integrated & open source code is added. 
+As the code evolves, it accumulate more and more bugs.
+ - When a bug is found, minor or major, make sure it is tracked.
+   - Minor bugs can be ignored for a while, but can also mutate into a more sirouse issue.
    - Open a task. Write everything you found relavent during your investigations for future usage.
- - keep vendor/open source code updated.
-   - upgrades can contain bug fixes.
-   - upgrades can contain new bugs too, run sanity tests before committing code upgrades.
-   - view the change log of new releases.
-   - review the external projects open/close issues.
+ - Keep vendor/open source code updated.
+   - Keep track on your vendors blogs / press releases.
+   - View the change log of new releases. 
+   - Review the external projects open/close issues.
+   - Upgrades can contain bug fixes.
+   - Upgrades can inderduce new bugs too, run sanity tests before committing code upgrades.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-##### Research
-Ok, so now we know where the bug is generated, time to find a solution.
+#### Research
+Ok, we use all those awsome tools now know where the bug is generated. Time to pin point the issue and find a solution.
 
 ###### Remain effective
 Debugging is hard. We need to keep our mind sharp.
- - take brakes
- - find a quite place to work.
- - ask not to be disturbed.
+ - Take brakes
+ - Find a quite place to work.
+ - Ask not to be disturbed.
 
 ###### Rubber Duck Debuging
 In order to find a solution, we first need to define the problem.
-We all had that experince when a solution amerges while you try to explain the problem to someone else, you don't need their input, just someone to talk to aloud while you gatther your thougths, so why not a rubber duck or a teddy bear?
+We all had that experince when a solution amerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gatther your thougths. Studies shows that an object can be as effective as a human. So... why not a rubber duck or a teddy bear?
 
 ###### Use Co-workers
-Well even you duck is not very much helpful... time to leverage other people knowlage & experince.
+Well, even you duck is not very much helpful... Time to leverage other people knowlage & experince.
  - Diside for how long you're going to perssue a lead on your own.
- - keep in mind, others are busy too. I find the 'try everthing from the first google page' rule pretty useful.
- - once you got someone attention, let them find their own way.
- - explain what is wrong, not what you did.
- - be patiant, no body likes helping a jackass.
-
+ - Keep in mind that others are busy too. I find the 'Try everthing from the first google page' rule pretty useful.
+ - Once you got someone attention, let them find their own way.
+ - Explain what is wrong, not what you did. Let others find their own way. don't trap them in your mind set.
+ - Be patiant, no body likes helping a jackass.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-##### Clean Code
+#### Clean Code
 Code is almost never written just once. Most of the time, someone (maybe even you) will need to work on that piece of code at some point.
 
 As Robert C. Martin stated in his book Clean Code: A Handbook of Agile Software Craftsmanship, “Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.” But why should you care? What’s wrong with code that just works?
