@@ -148,11 +148,11 @@ Different debugger have different capabiltise but usualy you can find the same b
 ------------------------------------------------------------------------------------------------------------------------
 
 ##### Linters
-Linters are programs that analyze code for potential errors, both logic & style.
+Linters are programs that analyze code for potential errors.
 Simply put, a parser parses your code and looks for mistakes.
 It saves time & maintain code quality/safety.
 
-Most editor will allow us to integrate linters as plugins, but we can use them as stand alone to automate scripts of our own.
+Most editors will allow us to integrate linters as plugins, but we can use them as stand alone to automate scripts of our own.
 
 Linters have a wide range of abilaties:
  - Detect logical errors (such as missing a comma or misspell a variable name)
@@ -176,6 +176,23 @@ or useless assignments at ruby
  obj = []
 ```
 
+###### Validators
+A validator is a program that can checks your web pages against the web standards.
+It is easy to miss a closing tag or misspell attribute, but very hard to find once its there.
+Most of the time leads to visual bugs. Visual bugs can be hurt UX so badly that it will affect you app drastically. (For example, a user that can't click a submit button of a form).
+
+
+HTML will work, somethings even look pretty good, when there are some major issues with the page structure.
+To make things even more challenging, different browsers deal with such invalid structure differently, so you page can look great on one, by totally deformed on other.
+
+Plus, Visual bugs are the ones makes you look bad & unprofessional just because there very easy to spot by the end user. The user doesn't thinks 'boy, I shouldn't view this site with Opera 9, maybe I'll switch to chrome 47'. He will probably think 'Man those guys are idiots over there' and move on to our competitors.
+
+###### Formatters
+Formatters are programs that analyze code, and fix them automatically according to style conventions.
+Formatters will remove all the annoying 'ugly code' for you. don't spend time on fixing indentations, white spaces, and match brackets.
+Focus on what you write, not who it looks.
+
+Since Linters warn about style issues, formatters help reduce lint errors too.
 ------------------------------------------------------------------------------------------------------------------------
 
 #### Version Control
@@ -263,6 +280,19 @@ Well, even you duck is not very much helpful... Time to leverage other people kn
  - Once you got someone attention, let them find their own way.
  - Explain what is wrong, not what you did. Let others find their own way. don't trap them in your mind set.
  - Be patient, no body likes helping a jackass.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Automation
+Bugs appear when the programs is in some state. Every time that state applies, the bug will appear.
+Sometimes it requrie a few simple steps to put the system in the buggy state, a click of a button, or a flag change.
+In other cases, getting there can be quite a juerny. you'll need to repeat multiple changes every time inorder to see & test the bug. this us just white noise for the debgging process. Plus, when we have multiple actions to complete each run, it is easy to miss one, and get to a totaly diffrent state.
+
+Automation helps us to remain focued on the stuff that matter. We'll repreduce/test our bug fast.
+ - Write a script that will change your programs state.
+ - Write an automated test for that bug.
+ - Automate casual dev tasks such as db resets, cleanups, backups.
+ - Automate devOps tasks such as deployment, e2e/smoke tests.  
 
 ------------------------------------------------------------------------------------------------------------------------
 
