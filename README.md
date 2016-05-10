@@ -320,25 +320,29 @@ Debugging is hard. We need to keep our mind sharp.
 
 ###### Rubber Duck Debugging
 In order to find a solution, we first need to define the problem.
-We all had that experience when a solution emerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gather your thoughts. Studies shows that objects can be as effective as a humans for that purpose, So... why not a rubber duck or a teddy bear?
+We all had that experience when a solution emerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gather your thoughts.
+Studies that objects can be as effective as a humans for that purpose, So... why not talk to a rubber duck or a teddy bear?
 
 ###### Use Co-workers
-Well, even you duck is not very much helpful... Time to leverage other people knowledge & experience.
- - Decide for how long you're going to pursue a lead on your own.
+Well, even your duck wasn't very much helpful... Time to leverage other people knowledge & experience.
+ - Decide for how long you're going to pursue leads on your own.
  - Keep in mind that others are busy too. Try to find leads at forums / blogs before approaching a co-worker. I find the 'Try everything from the first Google page' rule pretty useful.
  - Once you got someone attention, let them find their own way.
  - Explain what is wrong, not what you did. Let others find their own way.
  - Be patient, nobody likes helping a jackass.
 
-------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
 ### Automation
 Bugs appear when the programs is in some state - Every time that state applies, the bug will appear.
-Sometimes it requires a few simple steps to put the system in the buggy state, a click of a button, or a flag change.
-In other cases, getting there can be quite a journey.
-You'll need to repeat multiple changes every time in order to see & test the bug. This is just white noise for the debugging process. Plus, when we have multiple actions to complete each run, it is easy to miss one, and get to a totally different state.
 
-Automation helps us to remain focused on the stuff that matter. We'll reproduce/test our bug fast.
+Sometimes it requires a few simple steps to put the system in the buggy state. A click of a button, or a flag change and you're done.
+In other cases, getting there can be quite a journey.
+You'll need to repeat multiple changes every time in order to see & test the bug.
+This is just white noise for the debugging process.
+Plus, when we have multiple actions to complete each run, it is easy to miss one, and get to a totally different state.
+
+Automation helps us to remain focused on the stuff that matter. We can reproduce/test our bug fast.
  - Write a script that will change your programs state.
  - Write an automated test for that bug.
  - Automate casual state changing tasks such as db seeds/resets/cleanups/backups.
@@ -362,15 +366,15 @@ More tips:
  - Always improve yourself. if you are not happy with your current work, improve it, or at least understand what is wrong. next time, do it better.
 
 #### Design & Architecture
-Programs a divided into modules. Every module has its role and purpose. It helps you keep DRY principle and code quality.
+Programs are divided into modules. Every module has its role and purpose. It helps you keep DRY principle and code quality.
 
 Some tasks can be quite complex, and won't be completed in one coding session. We want to make sure that if & when we drop or hand over a task to someone els, it will be easy to pickup.
 
 Overall, sound architecture also prevents bugs.
 When program parts are not well defined/written we start seeing mutant modules that does many things, code duplication, and spaghetti code.
 
-Before racing ahead and writing hundreds of lines of code, take some time an ponder about your task.
-  - How does it fit the big picture.
+Before racing ahead and writing hundreds of lines of code, take some time an ponder about the task at hand.
+  - How does it fit the 'big picture'.
   - What are the feature requirements exactly?
   - Do I have sufficient knowledge in order to complete the task, or need more time for research.
   - What are the feature components and how they interact with each other.
@@ -399,6 +403,7 @@ There are lots of reasons why we should automate tests.
 You can read more about it at a previous post [here](https://github.com/Spectory/unit_tests_dev_meeting)
 
 The main argument you hear against it is - 'it takes too much time'.
+
 Unit tests are usually an 'easy written' code, therefore, it is written much faster than production code.
 Studies show that the overhead on on the development process is around 10%.
 
