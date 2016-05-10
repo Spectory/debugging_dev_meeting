@@ -1,4 +1,4 @@
-Debugging
+  Debugging
 =========
 
 Programs are like kids. You're at your home/office playing around, see how your baby grows, does all these nice things you taught it to do, and feel so proud when it succeeds. It reflects you so well, for the better & the worst.
@@ -28,18 +28,19 @@ Luckily, there are ways to soften that processes. At this doc, we'll go over som
 
 ## Tools
 The difference between a pro and an amateur is that **a pro knows how to use his tools**.
+
 Its easier to kill a bug with an exterminator that with a flip-flop. But keep in mind its easier to kill it with the flip-flop than drive it over with a truck. And if you aim is off, non of them will help you.
 
 Choose you tools wisely, learn how to use them correctly.
 
-When use right, tools will help use complete the job faster & better.
+When used right, tools will help use complete the job faster & better.
 
 #### Loggers
 Loggers allow us to to see what a program is doing just by observing from outside.
 When logs are kept & well maintained, it will also allow us to see what the system did in the past.
 
 ###### log levels
-When something is logged, it is written into the corresponding log, if the log level of the message is equal or higher than the configured log level.
+When something is logged, it is written into the corresponding log file, if the log level of the message is equal or higher than the configured log level.
 
 Most common log levels (ordered by severity) are :debug, :info, :warn, :error, :fatal, but most loggers will allow you to add your own levels & tags.
 
@@ -49,8 +50,8 @@ Loggers affect programs performance in two aspects:
  - CPU/RAM - Strings are written to the log. If we convert complex objects to strings, it takes its toll on the OS.
 
 ###### Logging tips
-Reading a log should give you a clear indication of what is going on at the system. A log entry should be informative. it should be easy to understand:
- - Where in the code this log entry was created.
+Reading a log should give you a clear indication of what is going on at the system. A log entry should be informative. It should be easy to understand:
+ - Where in the code this log entry was created at.
  - Which system/module/process generated it.
  - When & in what order the events happen.
  - What exactly happened.
@@ -58,7 +59,7 @@ Reading a log should give you a clear indication of what is going on at the syst
 You can achieve most of it by
  - Add the Module & Method name to the log entry
  - Print parameters & variables
- - Use log levels wisely to reduce IO.
+ - Use log levels wisely.
 
 In order to minimize the Logger impact on your system:
  - Avoid logs in a loop
@@ -89,7 +90,7 @@ Some users complained that sometimes the program returns the wrong result.
 After more questioning, we know the exact input the user entered.
 We are able reproduce the bug, but see no errors/exceptions raised. All we can to do is start probing around at the code, while running manual tests.
 
-How can we prevent or at least reduce the debug cycle of such scenarios?
+How can we prevent, or at least reduce the debug cycle of such scenarios?
 
 Methods have input, and output. If we know what goes in & out of them, we can tell if they work properly.
 This is why often while coding & debugging we find ourselves adding prints to the code like so:
@@ -106,7 +107,7 @@ end
 
 Those kind of prints are very helpful while developing/debugging, but pretty annoying for when comes in masses. This is why prints are required to be deleted - in order to keep our system logs clean.
 
-Using loggers `debug` mode allows us to eat our cake and eat it two - use our prints, but only when needed.
+Using loggers `debug` mode allows us to eat the cake and leave it whole - use our prints, but only when needed.
 
 ```ruby
 def add(x, y)
@@ -120,8 +121,8 @@ end
 Now by simply viewing the log we can pin point the error, looks like someone is misusing the the MyMath.add method and feeding it the wrong input.
 
 ```bash
-  Apr 24 04:01:20 [debug]: MyMath.add(3, _2)
-  Apr 24 04:01:20 [debug]: MyMath.add: res = 0
+Apr 24 04:01:20 [debug]: MyMath.add(3, _2)
+Apr 24 04:01:20 [debug]: MyMath.add: res = 0
 ```
 
 We can even improve that by adding a warn message
@@ -139,7 +140,9 @@ end
 
 Now by just viewing the logs, we can see the issue.
 ```bash
- Apr 24 04:01:20 [warn]: MyMath.add: invalid input y=#{_2}
+Apr 24 04:01:20 [debug]: MyMath.add(3, _2)
+Apr 24 04:01:20 [warn]: MyMath.add: invalid input y=_2
+Apr 24 04:01:20 [debug]: MyMath.add: res = 0
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -217,6 +220,7 @@ Formatters will remove all the annoying 'ugly code' for you. don't spend time on
 Focus on what you write, not who it looks.
 
 Since Linters warn about style issues, formatters help reduce lint errors too.
+
 ------------------------------------------------------------------------------------------------------------------------
 
 #### Version Control
@@ -269,6 +273,18 @@ Use the `--name-only` option to list affected files instead of files content.
 ###### git show <COMMIT_ID>
 When a lot of changes where done between the two targets, `git diff` can be too overwhelming. `git show` displays only changes from the given commit.
 `--name-only` works here too.
+
+------------------------------------------------------------------------------------------------------------------------
+
+#### Browsers dev tools
+All major browsers have developer-tools built-in.
+Its a wide range of tools such as debuggers, analyzers, recorders, viewers. diving into each one is beyond the scope of this doc.
+
+Generally speaking, those tools provide web developers deep access into the internals of the browser and their web application.
+It helps us efficiently
+ - Track down layout issues
+ - Debug JavaScript breakpoints
+ - Get insights for code optimization via audits.
 
 ========================================================================================================================
 
@@ -396,3 +412,4 @@ http://dev.splunk.com/view/logging-best-practices/SP-CAAADP6
 http://guides.rubyonrails.org/debugging_rails_applications.html
 https://validator.w3.org/docs/
 https://git-scm.com/documentation
+http://www.zsoltnagy.eu/javascript-debugging-tips-and-tricks/
