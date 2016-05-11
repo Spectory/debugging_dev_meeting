@@ -35,21 +35,25 @@ Choose you tools wisely, learn how to use them correctly.
 
 When used right, tools will help use complete the job faster & better.
 
-#### Loggers
+**Loggers**:
+
 Loggers allow us to to see what a program is doing just by observing from outside.
 When logs are kept & well maintained, it will also allow us to see what the system did in the past.
 
-###### log levels
+*log levels*:
+
 When something is logged, it is written into the corresponding log file, if the log level of the message is equal or higher than the configured log level.
 
 Most common log levels (ordered by severity) are :debug, :info, :warn, :error, :fatal, but most loggers will allow you to add your own levels & tags.
 
-###### Performance Impact
+*Performance Impact*:
+
 Loggers affect programs performance in two aspects:
  - IO - Logs are written to disk. When IO is massive, it can become a bottle neck at your OS/Network, which can impact your program performance.
  - CPU/RAM - Strings are written to the log. If we convert complex objects to strings, it takes its toll on the OS.
 
-###### Logging tips
+*Logging tips*:
+
 Reading a log should give you a clear indication of what is going on at the system. A log entry should be informative. It should be easy to understand:
  - Where in the code this log entry was created at.
  - Which system/module/process generated it.
@@ -65,7 +69,7 @@ In order to minimize the Logger impact on your system:
  - Avoid logs in a loop
  - Avoid logs that require stringify/parsing of big data structures
 
-###### Example
+*Example*:
 
 Lets consider the following code
 
@@ -146,7 +150,8 @@ Apr 24 04:01:20 [debug]: MyMath.add: res = 0
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
-#### Debuggers
+**Debuggers**:
+
 Debuggers allows us to see what a programs is doing from the inside.
 Different debugger have different capabilities but usually you can find the same basic features at each.
 
@@ -175,7 +180,8 @@ p bomb[:sound]
 
 ------------------------------------------------------------------------------------------------------------------------
 
-##### Linters
+**Linters**:
+
 Linters are programs that analyze code for potential errors.
 Simply put, a parser parses your code and looks for mistakes.
 It saves time & maintain code quality/safety.
@@ -204,7 +210,8 @@ or useless assignments at ruby
  obj = []
 ```
 
-###### Validators
+**Validators**:
+
 A validator is a program that can checks your web pages against the web standards.
 It is easy to miss a closing tag or misspell attribute, and very hard to find once its there.
 Most of the time it leads to visual bugs. Visual bugs can be hurt UX so badly that it will affect you app drastically (for example, a user that can't click a submit button of a form).
@@ -214,7 +221,8 @@ To make things even more challenging, different browsers deal with such invalid 
 
 Plus, Visual bugs are the ones makes you look bad & unprofessional just because there very easy to spot by the end user. The user doesn't thinks 'boy, I shouldn't view this site with Opera 9, maybe I'll switch to chrome 47'. He will probably think 'Man those guys are idiots over there' and move on to our competitors.
 
-###### Formatters
+**Formatters**:
+
 Formatters are programs that analyze code, and fix them automatically according to style conventions.
 Formatters will remove all the annoying 'ugly code' for you. don't spend time on fixing indentations, white spaces, and match brackets.
 Focus on what you write, not who it looks.
@@ -223,12 +231,14 @@ Since Linters warn about style issues, formatters help reduce lint errors too.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### Version Control
+**Version Control**:
+
 Bugs are 99.99999% human error. someone wrote a piece of code that is misbehaving.
 Version Control keeps our code history.
 By reviewing the history we can tell who changed what & when.
 
-###### git commit
+*git commit*:
+
 In order to make the best of it, first we should be descriptive at our commits messages.
 Commit messages like `git commit -am 'fix'` are pretty useless...
 
@@ -250,13 +260,16 @@ This way, our commit will look more like
 
 Now that our commits contains some actual useful data, how can we find the relevant commit?
 
-###### git log
+*git log*:
+
 Displays latest commits to the repo.
 
-###### git blame
+*git blame*:
+
 Shows who was the last to make changes to the viewed code, and at which commit.
 
-###### git bisect
+*git bisect*:
+
 Does a binary search on the commits.
  - `git bisect start` - start the bisect
  - `git bisect bad` - marks the current commit as bad, meaning the bug exists.
@@ -266,17 +279,20 @@ Does a binary search on the commits.
 Keep marking commits as good/bad till you find the commit that produced the bug.
  - remmber to use `git bisect reset` to go back to the starting point, or you'll leave the repo in a weird state.
 
-###### git diff
+*git diff*:
+
 Displays the diffrance between 2 commits / branches / files
 Use the `--name-only` option to list affected files instead of files content.
 
-###### git show <COMMIT_ID>
+*git show <COMMIT_ID>*:
+
 When a lot of changes where done between the two targets, `git diff` can be too overwhelming. `git show` displays only changes from the given commit.
 `--name-only` works here too.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### Browsers dev tools
+**Browsers dev tools**:
+
 All major browsers have developer-tools built-in.
 Its a wide range of tools such as debuggers, analyzers, recorders, viewers. diving into each one is beyond the scope of this doc.
 
@@ -293,7 +309,8 @@ A single developer can work very fast & efficiently, but there is a limit. At so
 
 Working as a team requires good communication & following agreed guidelines.
 
-#### Issue Tracking
+**Issue Tracking**:
+
 As our software gets bigger & bigger, the code base increases.
 Vendors code is integrated & open source code is added.
 As the code evolves, it accumulate more and more bugs.
@@ -309,21 +326,25 @@ As the code evolves, it accumulate more and more bugs.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### Research
+**Research**:
+
 Ok, we use all those awesome tools now know where the bug is generated. Time to pin point the issue and find a solution.
 
-###### Remain effective
+*Remain effective*:
+
 Debugging is hard. We need to keep our mind sharp.
  - Take breaks
  - Find a quite place to work.
  - Ask not to be disturbed.
 
-###### Rubber Duck Debugging
+*Rubber Duck Debugging*:
+
 In order to find a solution, we first need to define the problem.
 We all had that experience when a solution emerges while you try to explain the problem to someone else. You don't need their input, just someone to talk to aloud while you gather your thoughts.
 Studies that objects can be as effective as a humans for that purpose, So... why not talk to a rubber duck or a teddy bear?
 
-###### Use Co-workers
+*Use Co-workers*:
+
 Well, even your duck wasn't very much helpful... Time to leverage other people knowledge & experience.
  - Decide for how long you're going to pursue leads on your own.
  - Keep in mind that others are busy too. Try to find leads at forums / blogs before approaching a co-worker. I find the 'Try everything from the first Google page' rule pretty useful.
@@ -333,7 +354,8 @@ Well, even your duck wasn't very much helpful... Time to leverage other people k
 
 -----------------------------------------------------------------------------------------------------------------------
 
-### Automation
+**Automation**:
+
 Bugs appear when the programs is in some state - Every time that state applies, the bug will appear.
 
 Sometimes it requires a few simple steps to put the system in the buggy state. A click of a button, or a flag change and you're done.
@@ -350,7 +372,8 @@ Automation helps us to remain focused on the stuff that matter. We can reproduce
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### Clean Code
+**Clean Code**:
+
 Code is almost never written just once. Most of the time, someone (maybe even you) will need to work on that piece of code at some point.
 
 As Robert C. Martin stated in his book 'Clean Code: A Handbook of Agile Software Craftsmanship':
@@ -365,7 +388,8 @@ More tips:
  - The five-minute rule - if you find an ugly piece of code that can be fixed very fast, do it.
  - Always improve yourself. if you are not happy with your current work, improve it, or at least understand what is wrong. next time, do it better.
 
-#### Design & Architecture
+**Design & Architecture**:
+
 Programs are divided into modules. Every module has its role and purpose. It helps you keep DRY principle and code quality.
 
 Some tasks can be quite complex, and won't be completed in one coding session. We want to make sure that if & when we drop or hand over a task to someone els, it will be easy to pickup.
@@ -381,7 +405,8 @@ Before racing ahead and writing hundreds of lines of code, take some time an pon
   - Can I reuse/expand any other modules?
   - Break the tasks into a road-map. Define were are the main break points. When you reach a break point, ask your self if you have the time to reach the next one or not.
 
-#### Code review
+**Code review**:
+
 Code review is systematic examination of the source code.
 Its main goals are find developers mistakes before the code is deployed and mutate into a full grown bug.
 
@@ -398,7 +423,8 @@ Studies show that lightweight reviews uncovered as many bugs as formal reviews, 
  - Cover 200-400 line per session.
  - Cover everything. Configs, unit tests are code too.
 
-###### Automated tests
+**Automated tests**:
+
 There are lots of reasons why we should automate tests.
 You can read more about it at a previous post [here](https://github.com/Spectory/unit_tests_dev_meeting)
 
